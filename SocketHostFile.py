@@ -31,10 +31,8 @@ def listen_to_connection(connection:socket, address:str = None)->None:
 
 
 if __name__ == '__main__':
-    global connectionThreadList, connectionThreadListLock
     mySocket = socket.socket()
-    connectionThreadList = []
-    connectionThreadListLock = threading.Lock()
+
     port = 3000
     mySocket.bind(('',port))
     mySocket.listen(5)
@@ -45,9 +43,7 @@ if __name__ == '__main__':
         print (f"Got connection from {address}")
         # connection.send("Thank you for connecting.".encode())
         connectionThread = threading.Thread(target=listen_to_connection, args= (connection, address))
-        connectionThreadListLock.acquire()
-        connectionThreadList.append(connectionThread)
-        connectionThreadListLock.release()
+
         connectionThread.start()
 
 
