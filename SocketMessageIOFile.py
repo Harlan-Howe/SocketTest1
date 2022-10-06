@@ -34,6 +34,12 @@ class SocketMessageIO:
         return message
 
     def send_message_to_socket(self,message: str, connection: socket) -> None:
-
+        """
+        Sends the given message to the given socket in the format of the packed length of the message, followed by
+        the encoded message, itself.
+        :param message: the message to send
+        :param connection: the socket to send it to
+        :return: None.
+        """
         connection.sendall(struct.pack('>I', len(message)))
         connection.sendall(message.encode())
